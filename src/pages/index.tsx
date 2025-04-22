@@ -252,7 +252,7 @@ const HomePage: React.FC = () => {
                     <div className="bg-[#8B4513] text-white p-2 rounded-lg mr-3">
                       <FaYoutube size={24} />
                     </div>
-                    <h3 className="text-2xl font-playfair text-gray-800">YouTube</h3>
+                    <h3 className="text-2xl font-playfair text-gray-800">Most Viewed</h3>
                   </div>
                   <a 
                     href="https://youtube.com/oneminutegrace" 

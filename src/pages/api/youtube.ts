@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getLatestVideos } from '../../services/youtube';
+import { getMostViewedVideos } from '../../services/youtube';
 
 export default async function handler(
   req: NextApiRequest,
@@ -10,7 +10,7 @@ export default async function handler(
   }
 
   try {
-    const videos = await getLatestVideos();
+    const videos = await getMostViewedVideos();
     res.status(200).json(videos);
   } catch (error) {
     console.error('Error in YouTube API route:', error);
