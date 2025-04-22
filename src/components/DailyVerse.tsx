@@ -9,7 +9,7 @@ const DailyVerse: React.FC = () => {
   useEffect(() => {
     const fetchVerse = async () => {
       try {
-        // Attempt to get the verse from the server
+        // Only fetch from the JSON file via the daily-verse API
         const response = await fetch('/api/daily-verse');
         if (!response.ok) {
           throw new Error('Failed to fetch daily verse');

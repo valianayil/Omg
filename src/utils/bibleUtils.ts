@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const API_KEY = 'f09feecfc988b7a65debeb7223d8c15c';
+const API_KEY = process.env.BIBLE_API_KEY || '';
 const BIBLE_ID = '61fd76eafa1577c2-02';
 
 // List of Bible verses to pick from
@@ -132,8 +132,13 @@ export function formatBibleReference(reference: string): string {
 // Fetch a Bible verse from the API
 export async function fetchBibleVerse(verseId: string): Promise<DailyVerse | null> {
   try {
+    console.log(`Starting API call for verse ID: ${verseId}`);
+    // We'll use the verses endpoint instead of search
+    const apiUrl = `https://api.scripture.api.bible/v1/bibles/${BIBLE_ID}/verses/${verseId}`;
+    console.log(`API URL: ${apiUrl}`);
+    
     const response = await fetch(
-      `https://api.scripture.api.bible/v1/bibles/${BIBLE_ID}/search?query=${verseId}`,
+      apiUrl,
       {
         headers: {
           'api-key': API_KEY
@@ -141,22 +146,30 @@ export async function fetchBibleVerse(verseId: string): Promise<DailyVerse | nul
       }
     );
 
+    console.log(`API response status: ${response.status}`);
+    
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`API error: ${response.status}`, errorText);
       throw new Error(`API response error: ${response.status}`);
     }
 
     const data = await response.json();
+    console.log('API response data:', JSON.stringify(data).substring(0, 500) + '...');
 
-    if (!data.data.passages || data.data.passages.length === 0) {
-      throw new Error('No passages found');
+    if (!data.data) {
+      console.error('No verse data found in response');
+      throw new Error('No verse data found');
     }
 
-    const passage = data.data.passages[0];
+    const verse = data.data;
     const formattedReference = formatBibleReference(verseId);
+    
+    console.log(`Successfully fetched verse: ${verse.reference || formattedReference}`);
 
     return {
-      reference: passage.reference || formattedReference,
-      text: passage.content.replace(/<[^>]*>/g, '').trim(), // Strip HTML tags
+      reference: verse.reference || formattedReference,
+      text: verse.content.replace(/<[^>]*>/g, '').trim(), // Strip HTML tags
       lastUpdated: new Date().toISOString()
     };
   } catch (error) {

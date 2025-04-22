@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/daily-verse?force=true",
+      "path": "/api/update-daily-verse",
       "schedule": "0 0 * * *"
     }
   ]
