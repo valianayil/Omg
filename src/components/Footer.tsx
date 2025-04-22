@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
           </p>
           <div className="flex space-x-8 mb-8">
             <a 
-              href="https://facebook.com/oneminutegrace" 
+              href="https://facebook.com/1minutegrace" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-white hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-300"
@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
               <FaFacebook size={28} />
             </a>
             <a 
-              href="https://instagram.com/oneminutegrace" 
+              href="https://instagram.com/1minutegrace" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-white hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-300"
@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
               <FaInstagram size={28} />
             </a>
             <a 
-              href="https://youtube.com/oneminutegrace" 
+              href="https://youtube.com/@OneMinuteGrace" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-white hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-300"

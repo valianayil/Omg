@@ -119,7 +119,7 @@ const Header: React.FC = () => {
               </li>
               <li className="ml-4 flex space-x-4">
                 <a
-                  href="https://facebook.com/oneminutegrace" 
+                  href="https://facebook.com/1minutegrace" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`transition-all duration-300 ${getLinkHoverStyles()}`}
@@ -128,7 +128,7 @@ const Header: React.FC = () => {
                   <FaFacebook size={20} />
                 </a>
                 <a
-                  href="https://instagram.com/oneminutegrace" 
+                  href="https://instagram.com/1minutegrace" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`transition-all duration-300 ${getLinkHoverStyles()}`}
@@ -137,7 +137,7 @@ const Header: React.FC = () => {
                   <FaInstagram size={20} />
                 </a>
                 <a
-                  href="https://youtube.com/oneminutegrace" 
+                  href="https://youtube.com/@OneMinuteGrace" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`transition-all duration-300 ${getLinkHoverStyles()}`}
@@ -192,7 +192,7 @@ const Header: React.FC = () => {
                 </div>
                 <div className="flex justify-around py-3 px-4">
                   <a
-                    href="https://facebook.com/oneminutegrace" 
+                    href="https://facebook.com/1minutegrace" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-[#8B4513]"
@@ -201,7 +201,7 @@ const Header: React.FC = () => {
                     <FaFacebook size={20} />
                   </a>
                   <a
-                    href="https://instagram.com/oneminutegrace" 
+                    href="https://instagram.com/1minutegrace" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-[#8B4513]"
@@ -210,7 +210,7 @@ const Header: React.FC = () => {
                     <FaInstagram size={20} />
                   </a>
                   <a
-                    href="https://youtube.com/oneminutegrace" 
+                    href="https://youtube.com/@OneMinuteGrace" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-[#8B4513]"

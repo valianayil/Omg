@@ -121,7 +121,7 @@ const Contact: NextPage = () => {
                 <p className="text-gray-600 mb-6">Follow us on social media</p>
                 <div className="flex justify-center space-x-6">
                   <a
-                    href="https://facebook.com/oneminutegrace"
+                    href="https://facebook.com/1minutegrace"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-[#8B4513] text-white p-3 rounded-full hover:bg-[#654321] transition-all duration-300"
@@ -130,7 +130,7 @@ const Contact: NextPage = () => {
                     <FaFacebook className="w-5 h-5" />
                   </a>
                   <a
-                    href="https://instagram.com/oneminutegrace"
+                    href="https://instagram.com/1minutegrace"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-[#8B4513] text-white p-3 rounded-full hover:bg-[#654321] transition-all duration-300"
@@ -139,7 +139,7 @@ const Contact: NextPage = () => {
                     <FaInstagram className="w-5 h-5" />
                   </a>
                   <a
-                    href="https://youtube.com/oneminutegrace"
+                    href="https://youtube.com/@OneMinuteGrace"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-[#8B4513] text-white p-3 rounded-full hover:bg-[#654321] transition-all duration-300"

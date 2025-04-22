@@ -58,36 +58,15 @@ const About: NextPage = () => {
         <div className="container mx-auto px-4 relative">
           <div className="max-w-5xl mx-auto">
             {/* Timeline for desktop */}
-            <div className="hidden md:grid md:grid-cols-[auto_1fr] md:gap-8">
-              <div className="w-32 flex-shrink-0">
-                <div className="sticky top-24 flex flex-col items-center">
-                  {/* Timeline item 1 */}
-                  <div className="relative">
-                    <div className="h-24 w-1 bg-gradient-to-b from-[#8B4513] to-[#8B4513]/20 rounded-full"></div>
-                    <div className="w-12 h-12 rounded-full bg-[#8B4513] flex items-center justify-center text-white">
-                      <span className="text-xl font-bold">1</span>
-                    </div>
-                    <div className="h-16 w-1 bg-gradient-to-b from-[#8B4513]/20 to-[#8B4513]/60 mt-4 rounded-full"></div>
+            <div className="hidden md:block">
+              <div className="grid grid-cols-[80px_1fr] gap-8">
+                {/* First timeline item */}
+                <div className="relative">
+                  <div className="sticky top-24 w-12 h-12 rounded-full bg-[#8B4513] flex items-center justify-center text-white">
+                    <span className="text-xl font-bold">1</span>
                   </div>
-                  
-                  {/* Timeline item 2 */}
-                  <div className="relative">
-                    <div className="w-12 h-12 rounded-full bg-[#8B4513] flex items-center justify-center text-white">
-                      <span className="text-xl font-bold">2</span>
-                    </div>
-                    <div className="h-16 w-1 bg-gradient-to-b from-[#8B4513]/60 to-[#8B4513]/80 mt-4 rounded-full"></div>
-            </div>
-            
-                  {/* Timeline item 3 */}
-                  <div className="relative">
-                    <div className="w-12 h-12 rounded-full bg-[#8B4513] flex items-center justify-center text-white">
-                      <span className="text-xl font-bold">3</span>
-                    </div>
-                  </div>
+                  <div className="absolute top-16 bottom-0 left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-[#8B4513] to-[#8B4513]/20 rounded-full"></div>
                 </div>
-              </div>
-              <div className="flex-1">
-                {/* Our Beginning section */}
                 <div className="mb-16 pt-6">
                   <h3 className="text-3xl font-playfair mb-6 bg-gradient-to-r from-[#8B4513] to-[#654321] bg-clip-text text-transparent">
                     Our Beginning
@@ -100,7 +79,13 @@ const About: NextPage = () => {
                   </p>
                 </div>
                 
-                {/* Our Mission section */}
+                {/* Second timeline item */}
+                <div className="relative">
+                  <div className="sticky top-24 w-12 h-12 rounded-full bg-[#8B4513] flex items-center justify-center text-white">
+                    <span className="text-xl font-bold">2</span>
+                  </div>
+                  <div className="absolute top-16 bottom-0 left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-[#8B4513]/60 to-[#8B4513]/80 rounded-full"></div>
+                </div>
                 <div className="mb-16">
                   <h3 className="text-3xl font-playfair mb-6 bg-gradient-to-r from-[#8B4513] to-[#654321] bg-clip-text text-transparent">
                     Our Mission
@@ -112,8 +97,13 @@ const About: NextPage = () => {
                   </p>
                 </div>
                 
-                {/* Our Vision section */}
-              <div>
+                {/* Third timeline item */}
+                <div className="relative">
+                  <div className="sticky top-24 w-12 h-12 rounded-full bg-[#8B4513] flex items-center justify-center text-white">
+                    <span className="text-xl font-bold">3</span>
+                  </div>
+                </div>
+                <div>
                   <h3 className="text-3xl font-playfair mb-6 bg-gradient-to-r from-[#8B4513] to-[#654321] bg-clip-text text-transparent">
                     Our Vision
                   </h3>
@@ -122,12 +112,6 @@ const About: NextPage = () => {
                     Through Bible verses, prayer prompts, and thoughtful reflections, we aim to help you connect with 
                     your faith in meaningful ways that enhance your daily life and strengthen your spiritual journey.
                   </p>
-                  <div className="flex justify-center mt-10">
-                    <Link href="/contact" className="inline-flex items-center bg-[#8B4513] text-white px-8 py-3 rounded-full hover:bg-[#654321] transition-colors group">
-                      Join our journey
-                      <FaArrowRight className="ml-2 transform group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                  </div>
                 </div>
               </div>
             </div>
@@ -191,17 +175,10 @@ const About: NextPage = () => {
                   </p>
                 </div>
               </div>
-              
-              <div className="flex justify-center mt-6">
-                <Link href="/contact" className="inline-flex items-center bg-[#8B4513] text-white px-8 py-3 rounded-full hover:bg-[#654321] transition-colors group">
-                  Join our journey
-                  <FaArrowRight className="ml-2 transform group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
-              </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
       {/* Values Section */}
       <section className="py-20 bg-gray-50">
@@ -266,7 +243,7 @@ const About: NextPage = () => {
               
               <div className="flex flex-wrap justify-center gap-6">
                 <a
-                  href="https://facebook.com/oneminutegrace"
+                  href="https://facebook.com/1minutegrace"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-16 h-16 bg-[#8B4513] rounded-full flex items-center justify-center text-white transform hover:scale-110 transition-all duration-300 hover:shadow-lg"
@@ -274,7 +251,7 @@ const About: NextPage = () => {
                   <FaFacebook size={28} />
                 </a>
                 <a
-                  href="https://instagram.com/oneminutegrace"
+                  href="https://instagram.com/1minutegrace"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-16 h-16 bg-[#8B4513] rounded-full flex items-center justify-center text-white transform hover:scale-110 transition-all duration-300 hover:shadow-lg"
@@ -282,7 +259,7 @@ const About: NextPage = () => {
                   <FaInstagram size={28} />
                 </a>
                 <a
-                  href="https://youtube.com/oneminutegrace"
+                  href="https://youtube.com/@OneMinuteGrace"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-16 h-16 bg-[#8B4513] rounded-full flex items-center justify-center text-white transform hover:scale-110 transition-all duration-300 hover:shadow-lg"

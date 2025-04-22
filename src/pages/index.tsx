@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
-import { FaQuoteLeft, FaArrowRight, FaPlay, FaFacebook, FaInstagram, FaYoutube, FaTwitter, FaArrowDown } from 'react-icons/fa';
+import { FaQuoteLeft, FaArrowRight, FaPlay, FaFacebook, FaInstagram, FaYoutube, FaTwitter, FaArrowDown, FaCross } from 'react-icons/fa';
 import Layout from '../components/Layout';
 import DailyVerse from '../components/DailyVerse';
+import Modal from '../components/Modal';
 
 interface YouTubeVideo {
   id: string;
@@ -19,6 +20,123 @@ const HomePage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
+  
+  // Modal state
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState({
+    title: '',
+    content: '',
+  });
+
+  const currentDate = new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+
+  // Feature content data
+  const featureContent = [
+    {
+      id: 1,
+      title: 'Morning Prayer Guide',
+      summary: 'Start your day with intentional prayer to align your heart with God\'s purpose.',
+      content: `
+        <p class="mb-4">Starting your day with a meaningful prayer creates a spiritual foundation that can carry you through the challenges ahead. Here's a simple guide to morning prayer:</p>
+        
+        <h4 class="text-lg font-semibold mb-2">1. Begin with Gratitude</h4>
+        <p class="mb-4">"This is the day that the Lord has made; let us rejoice and be glad in it." (Psalm 118:24)</p>
+        <p class="mb-4">Take a moment to thank God for specific blessings in your life. Even on difficult days, there is always something to be grateful for.</p>
+        
+        <h4 class="text-lg font-semibold mb-2">2. Surrender Your Day</h4>
+        <p class="mb-4">"Trust in the LORD with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight." (Proverbs 3:5-6)</p>
+        <p class="mb-4">Offer your plans, challenges, and goals to God, asking for His guidance and wisdom throughout your day.</p>
+        
+        <h4 class="text-lg font-semibold mb-2">3. Pray for Others</h4>
+        <p class="mb-4">Take time to intercede for family, friends, and those in need. This shifts our focus outward and builds compassion.</p>
+        
+        <h4 class="text-lg font-semibold mb-2">4. Close with Listening</h4>
+        <p class="mb-4">End your prayer time with a moment of silence, listening for God's gentle guidance and wisdom for your day.</p>
+      `
+    },
+    {
+      id: 2,
+      title: 'Finding Peace in Chaos',
+      summary: 'Discover practices for maintaining spiritual calm when life feels overwhelming.',
+      content: `
+        <p class="mb-4">In today's fast-paced, constantly connected world, finding moments of peace can seem impossible. Yet Scripture assures us that God's peace is available even in the most chaotic circumstances.</p>
+        
+        <h4 class="text-lg font-semibold mb-2">Breathe and Remember</h4>
+        <p class="mb-4">"Peace I leave with you; my peace I give you. I do not give to you as the world gives. Do not let your hearts be troubled and do not be afraid." (John 14:27)</p>
+        <p class="mb-4">When anxiety rises, take three deep breaths while repeating a short scripture verse as a reminder of God's presence.</p>
+        
+        <h4 class="text-lg font-semibold mb-2">Create Sacred Pauses</h4>
+        <p class="mb-4">"Be still, and know that I am God." (Psalm 46:10)</p>
+        <p class="mb-4">Schedule brief moments throughout your day to pause, pray, and reorient yourself to God's presence. Even 60 seconds can reset your spiritual compass.</p>
+        
+        <h4 class="text-lg font-semibold mb-2">Practice Gratitude</h4>
+        <p class="mb-4">In moments of chaos, intentionally identify three things you're grateful for. Gratitude shifts our focus from what's wrong to what's right.</p>
+        
+        <h4 class="text-lg font-semibold mb-2">Limit Information Intake</h4>
+        <p class="mb-4">Set boundaries around news and social media consumption. Instead, fill your mind with scripture, worship music, and faith-building content.</p>
+      `
+    },
+    {
+      id: 3,
+      title: 'Bible Verse Reflection Prompt',
+      summary: 'Use this template with ChatGPT to get deeper insights and personal reflections on any Bible verse.',
+      content: `
+        <p class="mb-4">Copy and paste this prompt into ChatGPT to gain deeper understanding and personal application from any Bible verse:</p>
+        
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-6 relative overflow-hidden">
+          <p class="font-medium mb-2 text-[#8B4513]">ChatGPT Prompt Template:</p>
+          <div class="whitespace-pre-wrap text-gray-700 font-mono text-sm">
+I'd like to understand the following Bible verse more deeply: "[INSERT BIBLE VERSE HERE]"
+
+Please help me with:
+
+1. The historical and cultural context of this verse
+2. The core spiritual principles or teachings in this passage
+3. How these principles apply to modern life
+4. A personal reflection question that helps me apply this verse to my own life
+5. A short prayer based on the verse's message
+6. Other related verses that illuminate this same teaching
+
+Please write in a warm, thoughtful tone and make the insights accessible even to someone new to Bible study.
+          </div>
+          <button class="absolute top-2 right-2 text-xs bg-[#8B4513] text-white px-2 py-1 rounded hover:bg-[#654321] transition-colors" 
+                  onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent.trim()); this.textContent='Copied!'; setTimeout(() => this.textContent='Copy', 2000)">
+            Copy
+          </button>
+        </div>
+        
+        <h4 class="text-lg font-semibold mb-2">Example Usage:</h4>
+        <p class="mb-2">For Philippians 4:13: "I can do all things through Christ who strengthens me."</p>
+        
+        <p class="mb-4">The prompt will help you understand:</p>
+        <ul class="list-disc pl-5 mb-4">
+          <li class="mb-2">What Paul meant in his original context</li>
+          <li class="mb-2">How this verse relates to spiritual dependence vs. self-reliance</li>
+          <li class="mb-2">How to apply this principle to your challenges today</li>
+          <li class="mb-2">Questions for personal reflection</li>
+          <li class="mb-2">A prayer based on the verse</li>
+        </ul>
+        
+        <p class="mb-4">This approach works with any verse you're studying or memorizing, helping you develop a more meaningful connection with Scripture.</p>
+      `
+    }
+  ];
+
+  // Open modal with specific content
+  const openModal = (id: number) => {
+    const feature = featureContent.find(item => item.id === id);
+    if (feature) {
+      setModalContent({
+        title: feature.title,
+        content: feature.content
+      });
+      setModalOpen(true);
+    }
+  };
 
   useEffect(() => {
     const fetchVideos = async () => {
@@ -55,14 +173,14 @@ const HomePage: React.FC = () => {
         <meta name="description" content="Find daily Bible verses, Christian prayers, Gospel teachings, and messages of faith and hope in Jesus Christ. One minute of God's grace to transform your day." />
         <meta property="og:title" content="One Minute Grace - Daily Bible Verses & Christian Inspiration" />
         <meta property="og:description" content="Daily Bible verses, Christian prayers, and messages of faith in Jesus Christ to inspire your spiritual journey." />
-        <meta property="og:url" content="https://oneminutegrace.org" />
+        <meta property="og:url" content="https://oneminutegrace.com" />
         <meta property="og:image" content="/og-image.jpg" />
         <meta property="twitter:title" content="One Minute Grace - Daily Bible Verses & Christian Inspiration" />
         <meta property="twitter:description" content="Daily Bible verses, Christian prayers, and messages of faith in Jesus Christ to inspire your spiritual journey." />
         <meta property="twitter:image" content="/og-image.jpg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-        <link rel="canonical" href="https://oneminutegrace.org" />
+        <link rel="canonical" href="https://oneminutegrace.com" />
       </Head>
 
       {/* Hero Section */}
@@ -109,7 +227,7 @@ const HomePage: React.FC = () => {
             </p>
             <div className="flex flex-wrap justify-center gap-6 opacity-0 animate-fadeInUp" style={{ animationDelay: '0.9s', animationFillMode: 'forwards' }}>
               <a 
-                href="https://facebook.com/oneminutegrace" 
+                href="https://facebook.com/1minuteGrace" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white/10 hover:bg-white/20 text-white p-4 rounded-full transition-all duration-300 backdrop-blur-sm transform hover:scale-110"
@@ -118,7 +236,7 @@ const HomePage: React.FC = () => {
                 <FaFacebook size={24} />
               </a>
               <a 
-                href="https://instagram.com/oneminutegrace" 
+                href="https://instagram.com/1minuteGrace" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white/10 hover:bg-white/20 text-white p-4 rounded-full transition-all duration-300 backdrop-blur-sm transform hover:scale-110"
@@ -127,7 +245,7 @@ const HomePage: React.FC = () => {
                 <FaInstagram size={24} />
               </a>
               <a 
-                href="https://youtube.com/oneminutegrace" 
+                href="https://youtube.com/@OneMinuteGrace" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white/10 hover:bg-white/20 text-white p-4 rounded-full transition-all duration-300 backdrop-blur-sm transform hover:scale-110"
@@ -144,7 +262,7 @@ const HomePage: React.FC = () => {
               >
                 <FaTwitter size={24} />
               </a>
-            </div>
+            </div>  
           </div>
         </div>
 
@@ -165,7 +283,7 @@ const HomePage: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="relative h-[400px] md:h-[500px] rounded-xl overflow-hidden shadow-2xl">
               <Image 
-                src="https://images.unsplash.com/photo-1585858931412-3a20a0bfce4d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" 
+                src="/aboutimg.png" 
                 alt="About One Minute Grace" 
                 fill
                 style={{ objectFit: 'cover' }}
@@ -204,12 +322,12 @@ const HomePage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((item) => (
-              <div key={item} className="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
+            {featureContent.map((item) => (
+              <div key={item.id} className="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
                 <div className="relative h-[200px]">
                   <Image 
-                    src={`https://images.unsplash.com/photo-${item === 1 ? '1504531805093-8174b21622c2' : item === 2 ? '1531816459387-c5bd0c187fcc' : '1513542789476-b480a4601590'}?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80`}
-                    alt={`Featured content ${item}`}
+                    src={`/${item.id}.${item.id === 3 ? 'png' : 'jpeg'}`}
+                    alt={item.title}
                     fill
                     style={{ objectFit: 'cover' }}
                     className="transform hover:scale-105 transition-transform duration-500"
@@ -218,16 +336,15 @@ const HomePage: React.FC = () => {
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-2 text-gray-800">
-                    {item === 1 ? 'Morning Prayer Guide' : item === 2 ? 'Finding Peace in Chaos' : 'Gratitude Journal Prompts'}
+                    {item.title}
                   </h3>
                   <p className="text-gray-600 mb-4">
-                    {item === 1 
-                      ? 'Start your day with intentional prayer to align your heart with God\'s purpose.'
-                      : item === 2 
-                        ? 'Discover practices for maintaining spiritual calm when life feels overwhelming.'
-                        : 'Simple prompts to help you recognize God\'s blessings in your daily life.'}
+                    {item.summary}
                   </p>
-                  <button className="text-[#8B4513] font-medium hover:text-[#654321] transition-colors group">
+                  <button 
+                    onClick={() => openModal(item.id)}
+                    className="text-[#8B4513] font-medium hover:text-[#654321] transition-colors group"
+                  >
                     Read More
                     <FaArrowRight className="ml-2 inline-block transform group-hover:translate-x-1 transition-transform" />
                   </button>
@@ -263,7 +380,7 @@ const HomePage: React.FC = () => {
                     <h3 className="text-2xl font-playfair text-gray-800">YouTube</h3>
                   </div>
                   <a 
-                    href="https://youtube.com/oneminutegrace" 
+                    href="https://youtube.com/@OneMinuteGrace" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="text-[#8B4513] hover:text-[#654321] font-medium flex items-center group"
@@ -342,7 +459,7 @@ const HomePage: React.FC = () => {
                     <h3 className="text-2xl font-playfair text-gray-800">Instagram</h3>
                   </div>
                   <a 
-                    href="https://instagram.com/oneminutegrace" 
+                    href="https://instagram.com/1minuteGrace" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="text-[#8B4513] hover:text-[#654321] font-medium flex items-center group"
@@ -383,7 +500,7 @@ const HomePage: React.FC = () => {
                   ].map((post, index) => (
                     <a 
                       key={index} 
-                      href="https://instagram.com/oneminutegrace" 
+                      href="https://instagram.com/1minuteGrace" 
                       target="_blank" 
                       rel="noopener noreferrer" 
                       className="block relative group rounded-xl overflow-hidden"
@@ -483,6 +600,20 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Modal */}
+      <Modal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title={modalContent.title}
+      >
+        <div className="text-gray-600">
+          <div dangerouslySetInnerHTML={{ __html: modalContent.content }} />
+          <div className="mt-6 pt-4 border-t border-gray-200 text-right">
+            <p className="text-sm text-gray-500">{currentDate}</p>
+          </div>
+        </div>
+      </Modal>
 
       <style jsx global>{`
         @keyframes fadeInUp {
