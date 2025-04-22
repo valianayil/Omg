@@ -6,7 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const API_KEY = process.env.BIBLE_API_KEY || '';
+    const API_KEY = 'f09feecfc988b7a65debeb7223d8c15c';
     const BIBLE_ID = '61fd76eafa1577c2-02';
     const VERSE_ID = 'JHN.3.16'; // Use John 3:16 as a test verse
     

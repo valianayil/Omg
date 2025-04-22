@@ -51,10 +51,18 @@ const HomePage: React.FC = () => {
   return (
     <Layout>
       <Head>
-        <title>One Minute Grace - Daily Spiritual Inspiration</title>
-        <meta name="description" content="Find daily spiritual inspiration, prayers, and messages of hope and faith." />
+        <title>One Minute Grace - Daily Bible Verses & Christian Inspiration</title>
+        <meta name="description" content="Find daily Bible verses, Christian prayers, Gospel teachings, and messages of faith and hope in Jesus Christ. One minute of God's grace to transform your day." />
+        <meta property="og:title" content="One Minute Grace - Daily Bible Verses & Christian Inspiration" />
+        <meta property="og:description" content="Daily Bible verses, Christian prayers, and messages of faith in Jesus Christ to inspire your spiritual journey." />
+        <meta property="og:url" content="https://oneminutegrace.org" />
+        <meta property="og:image" content="/og-image.jpg" />
+        <meta property="twitter:title" content="One Minute Grace - Daily Bible Verses & Christian Inspiration" />
+        <meta property="twitter:description" content="Daily Bible verses, Christian prayers, and messages of faith in Jesus Christ to inspire your spiritual journey." />
+        <meta property="twitter:image" content="/og-image.jpg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href="https://oneminutegrace.org" />
       </Head>
 
       {/* Hero Section */}

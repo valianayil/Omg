@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
-const API_KEY = process.env.BIBLE_API_KEY || '';
+// Replace hardcoded API key with env variable
+const API_KEY = process.env.BIBLE_API_KEY || 'f09feecfc988b7a65debeb7223d8c15c';
 const BIBLE_ID = '61fd76eafa1577c2-02';
 
 // List of Bible verses to pick from

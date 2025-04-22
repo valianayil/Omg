@@ -1,0 +1,9 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://oneminutegrace.org/sitemap.xml
+
+# Disallow admin area
+Disallow: /admin 
