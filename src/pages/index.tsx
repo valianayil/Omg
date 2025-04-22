@@ -255,7 +255,7 @@ const HomePage: React.FC = () => {
                     <div className="bg-[#8B4513] text-white p-2 rounded-lg mr-3">
                       <FaYoutube size={24} />
                     </div>
-                    <h3 className="text-2xl font-playfair text-gray-800">Popular Videos</h3>
+                    <h3 className="text-2xl font-playfair text-gray-800">Most Viewed</h3>
                   </div>
                   <a 
                     href="https://youtube.com/oneminutegrace" 
@@ -321,8 +321,16 @@ const HomePage: React.FC = () => {
                   </div>
                 ) : (
                   <div className="text-center text-gray-500 h-64 flex flex-col items-center justify-center">
-                    <p className="mb-2">No videos available at the moment.</p>
-                    <p className="text-sm">Please check back later or visit our YouTube channel directly.</p>
+                    <p className="mb-2 text-lg">Coming Soon</p>
+                    <p className="text-sm mb-4">We're preparing amazing video content for you.</p>
+                    <a 
+                      href="https://youtube.com/oneminutegrace" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 bg-[#8B4513] text-white rounded-lg hover:bg-[#654321] transition-colors"
+                    >
+                      Visit Our Channel
+                    </a>
                   </div>
                 )}
               </div>

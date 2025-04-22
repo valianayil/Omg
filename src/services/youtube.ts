@@ -12,27 +12,9 @@ export async function getMostViewedVideos(): Promise<YouTubeVideo[]> {
     const apiKey = process.env.YOUTUBE_API_KEY;
     const channelId = process.env.YOUTUBE_CHANNEL_ID || 'UC-bW6BvAPTgdpvNXjMKmHWA';
 
-    console.log(`Fetching videos for channel: ${channelId}`);
+    console.log(`Fetching most viewed videos for channel: ${channelId}`);
 
-    // First, get the channel's uploads playlist ID
-    const channelResponse = await fetch(
-      `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${channelId}&key=${apiKey}`,
-      { cache: 'no-store' }
-    );
-    
-    if (!channelResponse.ok) {
-      console.error(`Channel API error: ${channelResponse.status}`);
-      return [];
-    }
-    
-    const channelData = await channelResponse.json();
-    
-    if (!channelData.items || channelData.items.length === 0) {
-      console.error('No channel found with ID:', channelId);
-      return [];
-    }
-    
-    // Get videos directly using search API with higher limit
+    // Directly fetch videos sorted by view count
     const searchResponse = await fetch(
       `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&maxResults=20&type=video&order=viewCount&key=${apiKey}`,
       { cache: 'no-store' }
