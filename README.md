@@ -17,8 +17,10 @@ yarn install
 Before running the development server, create a `.env.local` file in the root directory with the following variables:
 
 ```
-NEXT_PUBLIC_YOUTUBE_API_KEY=your_youtube_api_key_here
+YOUTUBE_API_KEY=your_youtube_api_key_here
 ```
+
+For local development, copy `.env.example` to `.env.local` and add your API keys.
 
 You'll need to get your own YouTube API key from the [Google Developer Console](https://console.developers.google.com/).
 
@@ -60,4 +62,12 @@ This project can be deployed on any platform that supports Next.js, such as:
 - [Netlify](https://www.netlify.com/): Another great option with similar features
 - [AWS Amplify](https://aws.amazon.com/amplify/): For AWS users
 
-For most hosting platforms, you'll need to set the environment variables in their configuration dashboard. 
+### Environment Variables on Vercel
+
+For Vercel deployment, you'll need to:
+
+1. Add the environment variables in the Vercel dashboard under your project settings
+2. Make sure to add `YOUTUBE_API_KEY` (without the NEXT_PUBLIC_ prefix as it's server-side only)
+3. After adding the variables, redeploy your application
+
+Environment variables are securely stored and only accessible on the server side. 

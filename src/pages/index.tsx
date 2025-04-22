@@ -3,7 +3,6 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { FaQuoteLeft, FaArrowRight, FaPlay, FaFacebook, FaInstagram, FaYoutube, FaTwitter, FaArrowDown } from 'react-icons/fa';
 import Layout from '../components/Layout';
-import { getLatestVideos } from '../services/youtube';
 
 interface YouTubeVideo {
   id: string;
@@ -23,7 +22,11 @@ const HomePage: React.FC = () => {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const latestVideos = await getLatestVideos();
+        const response = await fetch('/api/youtube');
+        if (!response.ok) {
+          throw new Error('Failed to fetch videos');
+        }
+        const latestVideos = await response.json();
         setVideos(latestVideos);
       } catch (error) {
         console.error('Error fetching videos:', error);

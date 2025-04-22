@@ -9,12 +9,13 @@ interface YouTubeVideo {
 
 export async function getLatestVideos(): Promise<YouTubeVideo[]> {
   try {
-    const apiKey = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY;
+    const apiKey = process.env.YOUTUBE_API_KEY;
     const channelId = 'UC-bW6BvAPTgdpvNXjMKmHWA';
 
     // Get the latest videos using the search endpoint
     const searchResponse = await fetch(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&maxResults=4&order=date&type=video&key=${apiKey}`
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&maxResults=4&order=date&type=video&key=${apiKey}`,
+      { cache: 'no-store' } // Ensure fresh data on each request
     );
     const searchData = await searchResponse.json();
 
@@ -28,7 +29,8 @@ export async function getLatestVideos(): Promise<YouTubeVideo[]> {
 
     // Get video details including duration and view count
     const videosResponse = await fetch(
-      `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,statistics,snippet&id=${videoIds}&key=${apiKey}`
+      `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,statistics,snippet&id=${videoIds}&key=${apiKey}`,
+      { cache: 'no-store' }
     );
     const videosData = await videosResponse.json();
 
