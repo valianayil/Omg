@@ -7,28 +7,20 @@ interface YouTubeVideo {
   publishedAt: string;
 }
 
-export async function getMostViewedVideos(): Promise<YouTubeVideo[]> {
+export async function getLatestVideos(): Promise<YouTubeVideo[]> {
   try {
     const apiKey = process.env.YOUTUBE_API_KEY;
-    const channelId = process.env.YOUTUBE_CHANNEL_ID || 'UC-bW6BvAPTgdpvNXjMKmHWA';
+    const channelId = 'UC-bW6BvAPTgdpvNXjMKmHWA';
 
-    console.log(`Fetching most viewed videos for channel: ${channelId}`);
-
-    // Directly fetch videos sorted by view count
+    // Get the latest videos using the search endpoint
     const searchResponse = await fetch(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&maxResults=20&type=video&order=viewCount&key=${apiKey}`,
-      { cache: 'no-store' }
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&maxResults=4&order=date&type=video&key=${apiKey}`,
+      { cache: 'no-store' } // Ensure fresh data on each request
     );
-    
-    if (!searchResponse.ok) {
-      console.error(`Search API error: ${searchResponse.status}`);
-      return [];
-    }
-    
     const searchData = await searchResponse.json();
 
     if (!searchData.items || searchData.items.length === 0) {
-      console.error('No videos found for channel:', channelId);
+      console.log('No videos found for channel:', channelId);
       return [];
     }
 
@@ -40,48 +32,21 @@ export async function getMostViewedVideos(): Promise<YouTubeVideo[]> {
       `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,statistics,snippet&id=${videoIds}&key=${apiKey}`,
       { cache: 'no-store' }
     );
-    
-    if (!videosResponse.ok) {
-      console.error(`Videos API error: ${videosResponse.status}`);
-      return [];
-    }
-    
     const videosData = await videosResponse.json();
 
-    if (!videosData.items || videosData.items.length === 0) {
-      console.error('No video details found');
-      return [];
-    }
-
-    // Sort videos by view count (highest first) and take top 4
-    const sortedVideos = videosData.items
-      .sort((a: any, b: any) => {
-        const viewsA = parseInt(a.statistics.viewCount || '0');
-        const viewsB = parseInt(b.statistics.viewCount || '0');
-        return viewsB - viewsA;
-      })
-      .slice(0, 4);
-
-    console.log(`Found ${sortedVideos.length} videos sorted by view count`);
-
     // Format the response
-    return sortedVideos.map((video: any) => ({
+    return videosData.items.map((video: any) => ({
       id: video.id,
       title: video.snippet.title,
       thumbnail: video.snippet.thumbnails?.high?.url || `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`,
       duration: formatDuration(video.contentDetails.duration),
-      views: formatViews(video.statistics.viewCount || '0'),
+      views: formatViews(video.statistics.viewCount),
       publishedAt: new Date(video.snippet.publishedAt).toLocaleDateString()
     }));
   } catch (error) {
     console.error('Error fetching YouTube videos:', error);
     return [];
   }
-}
-
-// Keep for backward compatibility
-export async function getLatestVideos(): Promise<YouTubeVideo[]> {
-  return getMostViewedVideos();
 }
 
 function formatDuration(duration: string): string {
@@ -95,7 +60,7 @@ function formatDuration(duration: string): string {
   if (hours) {
     return `${hours}:${minutes.padStart(2, '0')}:${seconds.padStart(2, '0')}`;
   }
-  return `${minutes || '0'}:${seconds.padStart(2, '0')}`;
+  return `${minutes}:${seconds.padStart(2, '0')}`;
 }
 
 function formatViews(views: string): string {
