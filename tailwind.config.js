@@ -29,6 +29,10 @@ module.exports = {
         'fadeIn': 'fadeIn 1.2s ease-in-out forwards',
         'slideUp': 'slideUp 0.8s ease-out forwards',
         'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'breathe': 'breathe 4s ease-in-out infinite',
+        'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
+        'breathe-slow': 'breathe 6s ease-in-out infinite',
+        'pulse-glow-slow': 'pulse-glow 5s ease-in-out infinite',
       },
       keyframes: {
         float: {
@@ -42,6 +46,20 @@ module.exports = {
         slideUp: {
           '0%': { transform: 'translateY(20px)', opacity: 0 },
           '100%': { transform: 'translateY(0)', opacity: 1 },
+        },
+        breathe: {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.1)' },
+        },
+        'pulse-glow': {
+          '0%, 100%': { 
+            transform: 'scale(1)',
+            opacity: 0.3,
+          },
+          '50%': { 
+            transform: 'scale(1.5)',
+            opacity: 0.7,
+          },
         },
       },
       backgroundImage: {

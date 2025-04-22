@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { FaQuoteLeft, FaArrowRight, FaPlay, FaFacebook, FaInstagram, FaYoutube, FaTwitter, FaArrowDown } from 'react-icons/fa';
 import Layout from '../components/Layout';
+import DailyVerse from '../components/DailyVerse';
 
 interface YouTubeVideo {
   id: string;
@@ -148,20 +149,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Daily Verse Section */}
-      <section className="relative py-24 bg-gradient-to-b from-[#f9f5f2] to-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center relative">
-            <div className="absolute -top-8 -left-8 text-[#8B4513]/20 opacity-50">
-              <FaQuoteLeft size={64} />
-            </div>
-            <h6 className="text-[#8B4513] font-medium mb-2 tracking-wider">DAILY VERSE</h6>
-            <h2 className="text-3xl md:text-5xl font-playfair mb-8 bg-gradient-to-r from-[#8B4513] to-[#654321] bg-clip-text text-transparent leading-tight">
-              "For I know the plans I have for you," declares the Lord, "plans to prosper you and not to harm you, plans to give you hope and a future."
-            </h2>
-            <p className="text-gray-600 text-xl font-medium">- Jeremiah 29:11</p>
-          </div>
-        </div>
-      </section>
+      <DailyVerse />
 
       {/* About Section */}
       <section className="relative py-16 bg-[url('/images/subtle-pattern.png')] bg-repeat">
