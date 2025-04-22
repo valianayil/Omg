@@ -23,12 +23,15 @@ const HomePage: React.FC = () => {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
+        setLoading(true);
+        console.log('Fetching YouTube videos...');
         const response = await fetch('/api/youtube');
         if (!response.ok) {
-          throw new Error('Failed to fetch videos');
+          throw new Error(`Failed to fetch videos: ${response.status}`);
         }
-        const latestVideos = await response.json();
-        setVideos(latestVideos);
+        const videoData = await response.json();
+        console.log(`Fetched ${videoData.length} videos`);
+        setVideos(videoData);
       } catch (error) {
         console.error('Error fetching videos:', error);
       } finally {
@@ -252,7 +255,7 @@ const HomePage: React.FC = () => {
                     <div className="bg-[#8B4513] text-white p-2 rounded-lg mr-3">
                       <FaYoutube size={24} />
                     </div>
-                    <h3 className="text-2xl font-playfair text-gray-800">Most Viewed</h3>
+                    <h3 className="text-2xl font-playfair text-gray-800">Popular Videos</h3>
                   </div>
                   <a 
                     href="https://youtube.com/oneminutegrace" 
@@ -268,12 +271,13 @@ const HomePage: React.FC = () => {
               
               <div className="p-6">
                 {loading ? (
-                  <div className="flex items-center justify-center h-64">
-                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#8B4513]"></div>
+                  <div className="flex flex-col items-center justify-center h-64">
+                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#8B4513] mb-4"></div>
+                    <p className="text-gray-500">Loading videos...</p>
                   </div>
                 ) : videos.length > 0 ? (
                   <div className="space-y-5">
-                    {videos.slice(0, 3).map((video) => (
+                    {videos.map((video) => (
                       <a 
                         key={video.id} 
                         href={`https://youtube.com/watch?v=${video.id}`}
@@ -308,7 +312,7 @@ const HomePage: React.FC = () => {
                             {video.title}
                           </h4>
                           <div className="flex items-center text-gray-500 text-xs mt-2">
-                            <span className="mr-3">{video.views}</span>
+                            <span className="mr-3 font-bold">{video.views}</span>
                             <span>{video.publishedAt}</span>
                           </div>
                         </div>
@@ -316,8 +320,9 @@ const HomePage: React.FC = () => {
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center text-gray-500 h-64 flex items-center justify-center">
-                    <p>No videos available at the moment.</p>
+                  <div className="text-center text-gray-500 h-64 flex flex-col items-center justify-center">
+                    <p className="mb-2">No videos available at the moment.</p>
+                    <p className="text-sm">Please check back later or visit our YouTube channel directly.</p>
                   </div>
                 )}
               </div>

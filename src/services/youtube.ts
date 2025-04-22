@@ -10,17 +10,43 @@ interface YouTubeVideo {
 export async function getMostViewedVideos(): Promise<YouTubeVideo[]> {
   try {
     const apiKey = process.env.YOUTUBE_API_KEY;
-    const channelId = 'UCFc4BT94nfadnV5eEXXfKzw';
+    const channelId = process.env.YOUTUBE_CHANNEL_ID || 'UC-bW6BvAPTgdpvNXjMKmHWA';
 
-    // Get videos from the channel
-    const searchResponse = await fetch(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&maxResults=10&type=video&key=${apiKey}`,
-      { cache: 'no-store' } // Ensure fresh data on each request
+    console.log(`Fetching videos for channel: ${channelId}`);
+
+    // First, get the channel's uploads playlist ID
+    const channelResponse = await fetch(
+      `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${channelId}&key=${apiKey}`,
+      { cache: 'no-store' }
     );
+    
+    if (!channelResponse.ok) {
+      console.error(`Channel API error: ${channelResponse.status}`);
+      return [];
+    }
+    
+    const channelData = await channelResponse.json();
+    
+    if (!channelData.items || channelData.items.length === 0) {
+      console.error('No channel found with ID:', channelId);
+      return [];
+    }
+    
+    // Get videos directly using search API with higher limit
+    const searchResponse = await fetch(
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&maxResults=20&type=video&order=viewCount&key=${apiKey}`,
+      { cache: 'no-store' }
+    );
+    
+    if (!searchResponse.ok) {
+      console.error(`Search API error: ${searchResponse.status}`);
+      return [];
+    }
+    
     const searchData = await searchResponse.json();
 
     if (!searchData.items || searchData.items.length === 0) {
-      console.log('No videos found for channel:', channelId);
+      console.error('No videos found for channel:', channelId);
       return [];
     }
 
@@ -32,10 +58,16 @@ export async function getMostViewedVideos(): Promise<YouTubeVideo[]> {
       `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,statistics,snippet&id=${videoIds}&key=${apiKey}`,
       { cache: 'no-store' }
     );
+    
+    if (!videosResponse.ok) {
+      console.error(`Videos API error: ${videosResponse.status}`);
+      return [];
+    }
+    
     const videosData = await videosResponse.json();
 
     if (!videosData.items || videosData.items.length === 0) {
-      console.log('No video details found');
+      console.error('No video details found');
       return [];
     }
 
@@ -47,6 +79,8 @@ export async function getMostViewedVideos(): Promise<YouTubeVideo[]> {
         return viewsB - viewsA;
       })
       .slice(0, 4);
+
+    console.log(`Found ${sortedVideos.length} videos sorted by view count`);
 
     // Format the response
     return sortedVideos.map((video: any) => ({
@@ -79,7 +113,7 @@ function formatDuration(duration: string): string {
   if (hours) {
     return `${hours}:${minutes.padStart(2, '0')}:${seconds.padStart(2, '0')}`;
   }
-  return `${minutes}:${seconds.padStart(2, '0')}`;
+  return `${minutes || '0'}:${seconds.padStart(2, '0')}`;
 }
 
 function formatViews(views: string): string {
