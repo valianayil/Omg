@@ -63,7 +63,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/navlogo.png" type="image/png" />
       </Head>
       <LoadingAnimation isLoading={isLoading} />
       <main className={`${poppins.variable} ${playfair.variable} font-sans ${isLoading ? 'invisible' : 'visible'}`}>

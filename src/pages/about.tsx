@@ -11,6 +11,7 @@ const About: NextPage = () => {
       <Head>
         <title>About | One Minute Grace</title>
         <meta name="description" content="Learn about One Minute Grace and our mission" />
+        <link rel="icon" href="/navlogo.png" type="image/png" />
       </Head>
 
       {/* Hero Section */}
