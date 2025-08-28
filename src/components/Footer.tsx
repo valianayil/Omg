@@ -73,7 +73,7 @@ const Footer: React.FC = () => {
             <p className="text-sm text-gray-400">
               © {new Date().getFullYear()} One Minute Grace. Made with <FaHeart className="inline text-red-500 mx-1" size={12} /> and faith by{' '}
               <a
-                href="https:/gebin.net" // Replace with your actual portfolio URL
+                href="https:gebin.net" // Replace with your actual portfolio URL
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-400 hover:text-blue-600 underline transition-all duration-300"
