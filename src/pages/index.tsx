@@ -195,7 +195,7 @@ Please write in a warm, thoughtful tone and make the insights accessible even to
               playsInline
               className="absolute object-cover w-full h-full"
             >
-              <source src="/videos/clouds.mp4" type="video/mp4" />
+              <source src="/api/stream-video" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/10"></div>
