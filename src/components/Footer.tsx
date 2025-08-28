@@ -70,9 +70,17 @@ const Footer: React.FC = () => {
         </div>
         
         <div className="border-t border-gray-800 mt-6 pt-8 text-center">
-          <p className="text-sm text-gray-400">
-            © {new Date().getFullYear()} One Minute Grace. Made with <FaHeart className="inline text-red-500 mx-1" size={12} /> and faith.
-          </p>
+            <p className="text-sm text-gray-400">
+              © {new Date().getFullYear()} One Minute Grace. Made with <FaHeart className="inline text-red-500 mx-1" size={12} /> and faith by{' '}
+              <a
+                href="https:/gebin.net" // Replace with your actual portfolio URL
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400 hover:text-blue-600 underline transition-all duration-300"
+              >
+                Gebin George
+              </a>.
+            </p>
         </div>
       </div>
     </footer>
