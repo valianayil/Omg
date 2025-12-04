@@ -236,7 +236,7 @@ Please write in a warm, thoughtful tone and make the insights accessible even to
                 <FaFacebook size={24} />
               </a>
               <a 
-                href="https://instagram.com/1minuteGrace" 
+                href="https://www.instagram.com/oneminutegrace" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white/10 hover:bg-white/20 text-white p-4 rounded-full transition-all duration-300 backdrop-blur-sm transform hover:scale-110"
