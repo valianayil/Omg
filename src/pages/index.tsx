@@ -459,7 +459,7 @@ Please write in a warm, thoughtful tone and make the insights accessible even to
                     <h3 className="text-2xl font-playfair text-gray-800">Instagram</h3>
                   </div>
                   <a 
-                    href="https://instagram.com/1minuteGrace" 
+                    href="https://www.instagram.com/oneminutegrace" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="text-[#8B4513] hover:text-[#654321] font-medium flex items-center group"
@@ -500,7 +500,7 @@ Please write in a warm, thoughtful tone and make the insights accessible even to
                   ].map((post, index) => (
                     <a 
                       key={index} 
-                      href="https://instagram.com/1minuteGrace" 
+                      href="https://www.instagram.com/oneminutegrace" 
                       target="_blank" 
                       rel="noopener noreferrer" 
                       className="block relative group rounded-xl overflow-hidden"
